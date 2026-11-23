@@ -1,6 +1,7 @@
 package br.ufpr.grimorio
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -58,15 +59,21 @@ class CriaturaActivity : AppCompatActivity() {
 
     private fun buscarCriaturaNaApi(nome: String) {
         lifecycleScope.launch {
-            limparResultado()
-            mostrarCarregando()
-            val resposta = withContext(Dispatchers.IO) { hogwartsApi.buscarCriaturas(nome) }
-            val criatura = escolherCriatura(resposta.criaturas, nome)
-            if (criatura == null) {
-                tvMensagem.text = getString(R.string.nenhuma_criatura)
+            try {
+                limparResultado()
+                mostrarCarregando()
+                val resposta = withContext(Dispatchers.IO) { hogwartsApi.buscarCriaturas(nome) }
+                val criatura = escolherCriatura(resposta.criaturas, nome)
+                if (criatura == null) {
+                    tvMensagem.text = getString(R.string.nenhuma_criatura)
+                    esconderCarregando()
+                } else {
+                    exibirCriatura(criatura)
+                }
+            } catch (e: Exception) {
+                Log.e("CriaturaActivity", "Erro ao buscar criatura", e)
+                tvMensagem.text = getString(R.string.erro_conexao)
                 esconderCarregando()
-            } else {
-                exibirCriatura(criatura)
             }
         }
     }

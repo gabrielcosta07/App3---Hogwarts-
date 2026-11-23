@@ -1,6 +1,7 @@
 package br.ufpr.grimorio
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -52,10 +53,16 @@ class PersonagemActivity : AppCompatActivity() {
 
     private fun buscarPersonagemNaApi(nome: String) {
         lifecycleScope.launch {
-            mostrarCarregando()
-            val resposta = withContext(Dispatchers.IO) { hogwartsApi.buscarPersonagens(nome) }
-            exibirPersonagem(resposta.personagens.firstOrNull())
-            esconderCarregando()
+            try {
+                mostrarCarregando()
+                val resposta = withContext(Dispatchers.IO) { hogwartsApi.buscarPersonagens(nome) }
+                exibirPersonagem(resposta.personagens.firstOrNull())
+            } catch (e: Exception) {
+                Log.e("PersonagemActivity", "Erro ao buscar personagem", e)
+                tvResultado.text = getString(R.string.erro_conexao)
+            } finally {
+                esconderCarregando()
+            }
         }
     }
 
