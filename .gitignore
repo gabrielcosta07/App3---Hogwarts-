@@ -9,3 +9,6 @@
 .cxx
 .kotlin/
 *.rar
+
+*.md
+!README.md
