@@ -40,6 +40,16 @@
             android:layout_marginTop="16dp"
             android:visibility="gone" />
 
+        <ImageView
+            android:id="@+id/ivPersonagem"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/descricao_imagem_personagem"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/tvResultado"
             android:layout_width="match_parent"

@@ -11,6 +11,7 @@
     <string name="nome_personagem">Nome: %1$s</string>
     <string name="especie_personagem">Espécie: %1$s</string>
     <string name="casa_personagem">Casa: %1$s</string>
+    <string name="descricao_imagem_personagem">Imagem do personagem</string>
 
     <string name="titulo_criatura">Busca de Criatura</string>
     <string name="hint_criatura">Digite o nome completo da criatura</string>
